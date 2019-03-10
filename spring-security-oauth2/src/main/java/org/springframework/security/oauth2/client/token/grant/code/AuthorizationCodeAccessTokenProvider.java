@@ -217,6 +217,7 @@ public class AuthorizationCodeAccessTokenProvider extends OAuth2AccessTokenSuppo
 		MultiValueMap<String, String> form = new LinkedMultiValueMap<String, String>();
 		form.add("grant_type", "refresh_token");
 		form.add("refresh_token", refreshToken.getValue());
+		form.add("client_id", resource.getClientId());
 		try {
 			return retrieveToken(request, resource, form, getHeadersForTokenRequest(request));
 		}
@@ -246,6 +247,7 @@ public class AuthorizationCodeAccessTokenProvider extends OAuth2AccessTokenSuppo
 		MultiValueMap<String, String> form = new LinkedMultiValueMap<String, String>();
 		form.set("grant_type", "authorization_code");
 		form.set("code", request.getAuthorizationCode());
+		form.set("client_id", resource.getClientId());
 
 		Object preservedState = request.getPreservedState();
 		if (request.getStateKey() != null || stateMandatory) {
